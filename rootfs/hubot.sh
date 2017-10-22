@@ -30,4 +30,6 @@ echo "No"| gosu hubot yo hubot --adapter matteruser --owner="${HUBOT_OWNER}" --n
 
 echo $HUBOT_EXTERNAL_SCRIPTS | jq -R 'split(",")' > external-scripts.json
 
+gosu hubot npm install --save "$(cat external-scripts.json | jq '[].')"
+
 gosu hubot /hubot/bin/hubot --adapter matteruser
