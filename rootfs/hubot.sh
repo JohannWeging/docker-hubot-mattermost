@@ -40,9 +40,11 @@ if [ -n "${FILE_BRAIN_PATH+x}" ]; then
     chown hubot:hubot ${FILE_BRAIN_PATH}
 fi
 
+DEPS=$(echo ${HUBOT_NPM_DEPS} | tr -d ' \t\n')
+
 OIFS=${IFS}
 IFS=','
-for package in $( echo ${HUBOT_NPM_DEPS} | tr -d ' \t\n'); do
+for package in ${DEPS}; do
     gosu hubot npm install --save ${package}
 done
 IFS=${OIFS}
