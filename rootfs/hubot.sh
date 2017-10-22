@@ -29,7 +29,7 @@ cd /hubot || exit 1
 
 echo "No"| gosu hubot yo hubot --adapter matteruser --owner="${HUBOT_OWNER}" --name="${HUBOT_NAME}" --description="${HUBOT_DESCIPTION}" --defaults
 
-echo $HUBOT_EXTERNAL_SCRIPTS | jq -R 'split(",")' > external-scripts.json
+echo $HUBOT_EXTERNAL_SCRIPTS | jq -R 'split(",")|ltrimstr(" ")|rtrimstr(" ")' > external-scripts.json
 
 if [ -n "${FILE_BRAIN_PATH+x}" ]; then
     mkdir -p ${FILE_BRAIN_PATH}
