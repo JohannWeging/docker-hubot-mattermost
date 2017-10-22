@@ -31,6 +31,11 @@ echo "No"| gosu hubot yo hubot --adapter matteruser --owner="${HUBOT_OWNER}" --n
 
 echo $HUBOT_EXTERNAL_SCRIPTS | jq -R 'split(",")' > external-scripts.json
 
+if [ -n "${FILE_BRAIN_PATH+x}" ]; then
+    mkdir -p ${FILE_BRAIN_PATH}
+    chown hubot:hubot ${FILE_BRAIN_PATH}
+fi
+
 OIFS=${IFS}
 IFS=','
 for package in ${HUBOT_NPM_DEPS}; do
