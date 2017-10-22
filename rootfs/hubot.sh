@@ -38,7 +38,7 @@ fi
 
 OIFS=${IFS}
 IFS=','
-for package in ${HUBOT_NPM_DEPS}; do
+for package in $( echo ${HUBOT_NPM_DEPS} | tr -d ' \t\n'); do
     gosu hubot npm install --save ${package}
 done
 IFS=${OIFS}
