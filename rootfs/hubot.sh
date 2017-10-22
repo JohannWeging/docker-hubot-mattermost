@@ -3,6 +3,7 @@
 HUBOT_NAME=${HUBOT_NAME:-"hubot"}
 HUBOT_DESCIPTION=${HUBOT_DESCIPTION:-"hubot bot"}
 HUBOT_EXTERNAL_SCRIPTS=${HUBOT_EXTERNAL_SCRIPTS:-""}
+HUBOT_NPM_DEPS=${HUBOT_NPM_DEPS:-""}
 
 if [ -z ${HUBOT_OWNER+x} ]; then
     echo "env HUBOT_OWNER required"
@@ -30,6 +31,11 @@ echo "No"| gosu hubot yo hubot --adapter matteruser --owner="${HUBOT_OWNER}" --n
 
 echo $HUBOT_EXTERNAL_SCRIPTS | jq -R 'split(",")' > external-scripts.json
 
-gosu hubot npm install --save "$(cat external-scripts.json | jq -c '.[]')"
+OIFS=${IFS}
+IFS=','
+for package in ${HUBOT_NPM_DEPS}; do
+    gosu hubot npm install --save ${package}
+done
+IFS=${OIFS}
 
 gosu hubot /hubot/bin/hubot --adapter matteruser
