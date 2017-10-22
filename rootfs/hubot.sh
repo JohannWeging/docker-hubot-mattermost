@@ -1,5 +1,9 @@
 #!/bin/sh
 
+if [ ${DEBUG} = "true" ]; then
+    set -x
+fi
+
 HUBOT_NAME=${HUBOT_NAME:-"hubot"}
 HUBOT_DESCIPTION=${HUBOT_DESCIPTION:-"hubot bot"}
 HUBOT_EXTERNAL_SCRIPTS=${HUBOT_EXTERNAL_SCRIPTS:-""}
